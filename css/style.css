@@ -1,0 +1,15 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    font-family: 'Lobster', cursive;
+    margin: 20px 20px;
+    background-color:rgba(218, 214, 219, 0.533);
+    color: black;
+    font-size: 1.5rem;
+}

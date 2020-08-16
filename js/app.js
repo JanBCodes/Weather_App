@@ -1,11 +1,41 @@
-main =()=>
+import RESTAPI from "./RESTAPI.js"
+
+const main=()=>
 {
     const dropDownList=document.querySelector("#location")
 
     dropDownList.addEventListener("change", function(){
         const endPoint=`http://api.weatherstack.com/current?access_key=7a139abc67be15873497c6a4bfe3c49e&query=${dropDownList.value}`
-        console.log(endPoint)
+       
+        const api = new RESTAPI()
 
+        api.getAPIData(endPoint)
+        .then((data)=>{
+            
+            //** Passed to the Resolve()
+
+            const div = document.querySelector("#displayWeather");
+            div.innerHTML=`The current temperature in ${dropDownList.value} is ${data.current.temperature}`;
+            div.innerHTML+=`<br>The current weather description is ${data.current.weather_descriptions[0]} <br>`;
+        
+                //Dynamically created elements
+            const weatherImg = document.createElement("img");
+            weatherImg.setAttribute("src",data.current.weather_icons[0]);
+            div.appendChild(weatherImg);// must append!
+
+        })
+        .catch(()=>{
+            //** Passed to the Reject()
+            console.log(`Error`)
+            
+        });
+
+    });
+
+
+
+        /*----------------------------------------------------------------------------------------------------------
+        
         //This code is used to get a response from the REST API.
         fetch(endPoint) //asynchronous 
 
@@ -24,7 +54,11 @@ main =()=>
        })
        .catch(()=>{console.log(`Error :${err}`)});
 
-        /*
+    */
+        //-----------------------------------------------------------------------------------------------------
+    /* 
+        //This code is used to get a response from the REST API.
+        fetch(endPoint) //asynchronous 
         .then(function(response){
 
             response.json() // async operation 
@@ -48,7 +82,5 @@ main =()=>
             console.log(`Error :${err}`)
         })
         */
-
-    });
 }
 main();

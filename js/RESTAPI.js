@@ -6,16 +6,18 @@ class RESTAPI
 
             fetch(endPoint)
             .then(response=>response.json())
-            .then(data=>{
-    
-                console.log(data)
-                return data
+            .then(jsonObjData=>{
+                   
+                resolve (jsonObjData);
             })
-            .catch(()=>{console.log(`Error :${err}`)});
+            .catch(()=>{
+
+                reject();
+            });
 
         })
 
     }
 }
 
-export default RESTAPI
+export default RESTAPI;

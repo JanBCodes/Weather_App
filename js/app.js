@@ -1,4 +1,4 @@
-function main()
+main =()=>
 {
     const dropDownList=document.querySelector("#location")
 
@@ -9,6 +9,22 @@ function main()
         //This code is used to get a response from the REST API.
         fetch(endPoint) //asynchronous 
 
+       .then(response=>response.json())
+       .then (data=>{
+
+            const div = document.querySelector("#displayWeather");
+            div.innerHTML=`The current temperature in ${dropDownList.value} is ${data.current.temperature}`;
+            div.innerHTML+=`<br>The current weather description is ${data.current.weather_descriptions[0]} <br>`;
+        
+            //Dynamically created elements
+            const weatherImg = document.createElement("img");
+            weatherImg.setAttribute("src",data.current.weather_icons[0]);
+            div.appendChild(weatherImg);// must append!
+
+       })
+       .catch(()=>{console.log(`Error :${err}`)});
+
+        /*
         .then(function(response){
 
             response.json() // async operation 
@@ -31,6 +47,8 @@ function main()
         .catch(function(err){
             console.log(`Error :${err}`)
         })
+        */
+
     });
 }
 main();
